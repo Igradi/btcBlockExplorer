@@ -26,17 +26,44 @@ const HomePage = () => {
                         </p>
 
                         <div className="mt-6">
-                            <h2 className="text-xl font-bold mb-2">Latest Blocks</h2>
-                            <ul>
-                                {latestBlocks.map((block) => (
-                                    <li key={block.height} className="mb-4">
-                                        <p className="font-bold">Block Height: {block.height}</p>
-                                        <p>Time: {block.time}</p>
-                                        <p>Size: {block.size}</p>
-                                        <p>Transaction Count: {block.transactionCount}</p>
-                                    </li>
-                                ))}
-                            </ul>
+                            <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+                                <table className="min-w-full divide-y divide-gray-200">
+                                    <thead className="bg-gray-50">
+                                        <tr>
+                                            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                Block Height
+                                            </th>
+                                            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                Time
+                                            </th>
+                                            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                Size
+                                            </th>
+                                            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                Transaction Count
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody className="bg-white divide-y divide-gray-200">
+                                        {latestBlocks.map((block) => (
+                                            <tr key={block.height}>
+                                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                                    {block.height}
+                                                </td>
+                                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                                    {block.time}
+                                                </td>
+                                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                                    {block.size}
+                                                </td>
+                                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                                    {block.transactionCount}
+                                                </td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>

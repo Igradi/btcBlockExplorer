@@ -3,6 +3,31 @@ import logo from '../images/bitcoin-btc-logo.png';
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
+    const [search, setSearch] = useState('');
+
+    const handleSearch = async (event) => {
+        event.preventDefault();
+
+        if (search.startsWith('1') || search.startsWith('3') || search.startsWith('bc1')) {
+            const response = await fetch(`http://localhost:4000/address/${search}`);
+            const data = await response.json();
+            console.log(data);
+        } else if (search.length === 64) {
+            let response = await fetch(`http://localhost:4000/block/${search}`);
+            if (response.ok) {
+                const data = await response.json();
+                console.log(data);
+            } else {
+                response = await fetch(`http://localhost:4000/transaction/${search}`);
+                const data = await response.json();
+                console.log(data);
+            }
+        } else {
+            const response = await fetch(`http://localhost:4000/block/${search}`);
+            const data = await response.json();
+            console.log(data);
+        }
+    };
 
     return (
         <nav className="bg-gray-800">
@@ -22,7 +47,9 @@ const Navbar = () => {
                     </div>
                     <div className="hidden md:flex">
                         <div className="ml-4 flex items-center md:ml-6">
-                            <input type="text" placeholder="Search transactions, addresses, blocks..." className="rounded-md p-2 w-52" />
+                            <form onSubmit={handleSearch}>
+                                <input type="text" placeholder="Search transactions, addresses, blocks..." className="rounded-md p-2 w-52" value={search} onChange={(e) => setSearch(e.target.value)} />
+                            </form>
                         </div>
                     </div>
                     <div className="-mr-2 flex md:hidden">
@@ -45,7 +72,9 @@ const Navbar = () => {
                 <div className="pt-4 pb-3 border-t border-gray-700">
                     <div className="flex items-center px-5">
                         <div className="flex-shrink-0">
-                            <input type="text" placeholder="Search transactions, addresses, blocks..." className="rounded-md p-2" />
+                            <form onSubmit={handleSearch}>
+                                <input type="text" placeholder="Search transactions, addresses, blocks..." className="rounded-md p-2" value={search} onChange={(e) => setSearch(e.target.value)} />
+                            </form>
                         </div>
                     </div>
                 </div>
