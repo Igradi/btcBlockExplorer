@@ -1,9 +1,12 @@
 const express = require('express');
+const cors = require('cors');
 const blockController = require('./controllers/blockController');
 const transactionController = require('./controllers/transactionController');
 const addressController = require('./controllers/addressController');
 
 const app = express();
+
+app.use(cors());
 
 app.get('/block/:blockId', blockController.getBlock);
 app.get('/latest-blocks', blockController.getLatestBlocks);
