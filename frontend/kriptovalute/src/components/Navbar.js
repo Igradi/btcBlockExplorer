@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import logo from '../images/bitcoin-btc-logo.png';
+import { useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
+    const navigate = useNavigate();
     const [isOpen, setIsOpen] = useState(false);
     const [search, setSearch] = useState('');
 
@@ -19,6 +21,7 @@ const Navbar = () => {
                 console.log(data);
             } else {
                 response = await fetch(`http://localhost:4000/transaction/${search}`);
+                navigate(`/transactionDetails/${search}`);
                 const data = await response.json();
                 console.log(data);
             }
