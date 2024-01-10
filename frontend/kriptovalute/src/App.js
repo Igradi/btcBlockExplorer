@@ -4,6 +4,7 @@ import './App.css';
 import Navbar from './components/Navbar';
 import HomePage from './components/HomePage';
 import TransactionDetails from './components/TransactionDetails';
+import BlockDetails from './components/BlockDetails';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/transactionDetails/:transactionId" element={<TransactionDetails />} />
+          <Route path="/blockDetails/:blockId" element={<BlockDetails />} />
         </Routes>
       </div>
     </Router>

@@ -15,6 +15,7 @@ const Navbar = () => {
             const data = await response.json();
             console.log(data);
         } else if (search.length === 64) {
+            navigate(`/blockDetails/${search}`);
             let response = await fetch(`http://localhost:4000/block/${search}`);
             if (response.ok) {
                 const data = await response.json();
