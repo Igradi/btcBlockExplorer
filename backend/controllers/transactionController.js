@@ -2,9 +2,10 @@ const bitcoin = require('../utils/bitcoinInstance');
 
 const getTransaction = async (req, res) => {
     try {
-        const transaction = await bitcoin.getTransaction(req.params.txId);
+        const transaction = await bitcoin.getRawTransaction(req.params.txId, true);
         res.json({ transaction });
     } catch (error) {
+        console.error(error);
         res.status(500).json({ error: 'Greška pri dohvaćanju transakcije' });
     }
 };

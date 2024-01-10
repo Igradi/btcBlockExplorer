@@ -10,6 +10,7 @@ app.use(cors());
 
 app.get('/block/:blockId', blockController.getBlock);
 app.get('/latest-blocks', blockController.getLatestBlocks);
+app.get('/block-by-height/:height', blockController.getBlockStatsByHeight);
 
 app.get('/transaction/:txId', transactionController.getTransaction);
 

@@ -2,7 +2,7 @@ const bitcoin = require('../utils/bitcoinInstance');
 
 const getBlock = async (req, res) => {
     try {
-        const block = await bitcoin.getBlock(req.params.blockId);
+        const block = await bitcoin.getBlockStats(req.params.blockId);
         if (!block) {
             res.status(404).json({ error: 'Blok nije pronađen' });
             return;
@@ -52,5 +52,21 @@ const getLatestBlocks = async (req, res) => {
     }
 };
 
+const getBlockStatsByHeight = async (req, res) => {
+    try {
+        const blockHash = await bitcoin.getBlockHash(Number(req.params.height));
+        const blockStats = await bitcoin.getBlockStats(blockHash);
 
-module.exports = { getBlock, getLatestBlocks };
+        if (!blockStats) {
+            res.status(404).json({ error: 'Statistike bloka nisu pronađene' });
+            return;
+        }
+
+        res.json({ blockStats, blockHash });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ error: 'Greška pri dohvaćanju statistika bloka' });
+    }
+};
+
+module.exports = { getBlock, getLatestBlocks, getBlockStatsByHeight };
