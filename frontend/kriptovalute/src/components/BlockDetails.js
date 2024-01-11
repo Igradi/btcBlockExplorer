@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 
 const BlockDetails = () => {
     const { blockId } = useParams();
     const [blockData, setBlockData] = useState(null);
+    const [transactions, setTransactions] = useState([]);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -12,6 +13,13 @@ const BlockDetails = () => {
                 if (response.ok) {
                     const data = await response.json();
                     setBlockData(data.block);
+
+                    const transactionsResponse = await fetch(`http://localhost:4000/block-transactions/${data.block.blockhash}`);
+                    if (transactionsResponse.ok) {
+                        const transactionsData = await transactionsResponse.json();
+                        setTransactions(transactionsData.transactions);
+                    } else {
+                    }
                 } else {
                 }
             } catch (error) {
@@ -54,9 +62,16 @@ const BlockDetails = () => {
                     <p><span className="font-bold">Total Weight:</span> {blockData.total_weight}</p>
                     <p><span className="font-bold">Total Fee:</span> {blockData.totalfee} satoshis</p>
                     <p><span className="font-bold">Transactions:</span> {blockData.txs}</p>
-                    <p><span className="font-bold">UTXO Increase:</span> {blockData.utxo_increase}</p>
-                    <p><span className="font-bold">UTXO Size Increase:</span> {blockData.utxo_size_inc} bytes</p>
                 </div>
+
+                <h2 className="text-xl font-bold mt-4 mb-2">Transactions:</h2>
+                <ul className="list-disc list-inside">
+                    {transactions.map((transaction, index) => (
+                        <li key={index} className="text-blue-500 hover:underline">
+                            <Link to={`/transactionDetails/${transaction}`}>{transaction}</Link>
+                        </li>
+                    ))}
+                </ul>
             </div>
         </div>
     );
