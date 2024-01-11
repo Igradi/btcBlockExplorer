@@ -69,4 +69,19 @@ const getBlockStatsByHeight = async (req, res) => {
     }
 };
 
-module.exports = { getBlock, getLatestBlocks, getBlockStatsByHeight };
+const getBlockTransactions = async (req, res) => {
+    try {
+        const block = await bitcoin.getBlock(req.params.blockHash);
+        if (!block) {
+            res.status(404).json({ error: 'Blok nije pronađen' });
+            return;
+        }
+        res.json({ transactions: block.tx });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Greška pri dohvaćanju transakcija bloka' });
+    }
+};
+
+
+module.exports = { getBlock, getLatestBlocks, getBlockStatsByHeight, getBlockTransactions };
