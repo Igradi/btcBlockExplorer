@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 const HomePage = () => {
     const [latestBlocks, setLatestBlocks] = useState([]);
@@ -48,7 +49,7 @@ const HomePage = () => {
                                         {latestBlocks.map((block) => (
                                             <tr key={block.height}>
                                                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                                    {block.height}
+                                                    <Link to={`/blockDetails/${block.height}`}>{block.height}</Link>
                                                 </td>
                                                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                                     {block.time}
