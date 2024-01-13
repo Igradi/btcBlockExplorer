@@ -8,22 +8,21 @@ const BlockDetails = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            try {
-                const response = await fetch(`http://localhost:4000/block/${blockId}`);
-                if (response.ok) {
-                    const data = await response.json();
-                    setBlockData(data.block);
+            const isBlockHeight = !isNaN(blockId);
+            const url = isBlockHeight ? `http://localhost:4000/block-by-height/${blockId}` : `http://localhost:4000/block/${blockId}`;
+            const response = await fetch(url);
+            if (response.ok) {
+                const data = await response.json();
+                const blockData = data.blockStats || data.block;
+                setBlockData(blockData);
 
-                    const transactionsResponse = await fetch(`http://localhost:4000/block-transactions/${data.block.blockhash}`);
+                if (blockData) {
+                    const transactionsResponse = await fetch(`http://localhost:4000/block-transactions/${blockData.blockhash}`);
                     if (transactionsResponse.ok) {
                         const transactionsData = await transactionsResponse.json();
                         setTransactions(transactionsData.transactions);
-                    } else {
                     }
-                } else {
                 }
-            } catch (error) {
-                console.error('Fetch error:', error);
             }
         };
 

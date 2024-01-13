@@ -16,10 +16,12 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/transactionDetails/:transactionId" element={<TransactionDetails />} />
           <Route path="/blockDetails/:blockId" element={<BlockDetails />} />
+          <Route path="/blockDetailsByHeight/:blockHeight" element={<BlockDetails />} />
         </Routes>
       </div>
     </Router>
   );
 }
+
 
 export default App;

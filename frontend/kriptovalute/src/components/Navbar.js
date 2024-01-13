@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import logo from '../images/bitcoin-btc-logo.png';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
     const navigate = useNavigate();
@@ -9,27 +10,17 @@ const Navbar = () => {
 
     const handleSearch = async (event) => {
         event.preventDefault();
-
-        if (search.startsWith('1') || search.startsWith('3') || search.startsWith('bc1')) {
-            const response = await fetch(`http://localhost:4000/address/${search}`);
-            const data = await response.json();
-            console.log(data);
-        } else if (search.length === 64) {
-            navigate(`/blockDetails/${search}`);
-            let response = await fetch(`http://localhost:4000/block/${search}`);
+        let urls = [
+            { url: `http://localhost:4000/block-by-height/${search}`, route: `/blockDetails/${search}` },
+            { url: `http://localhost:4000/block/${search}`, route: `/blockDetails/${search}` },
+            { url: `http://localhost:4000/transaction/${search}`, route: `/transactionDetails/${search}` }
+        ];
+        for (let item of urls) {
+            const response = await fetch(item.url);
             if (response.ok) {
-                const data = await response.json();
-                console.log(data);
-            } else {
-                response = await fetch(`http://localhost:4000/transaction/${search}`);
-                navigate(`/transactionDetails/${search}`);
-                const data = await response.json();
-                console.log(data);
+                navigate(item.route);
+                break;
             }
-        } else {
-            const response = await fetch(`http://localhost:4000/block/${search}`);
-            const data = await response.json();
-            console.log(data);
         }
     };
 
@@ -39,9 +30,11 @@ const Navbar = () => {
                 <div className="flex items-center justify-between h-16">
                     <div className="flex items-center">
                         <div className="flex-shrink-0">
-                            <img className="h-8 w-8" src={logo} alt="Logo" />
+                            <Link to="/">
+                                <img className="h-8 w-8" src={logo} alt="Logo" />
+                            </Link>
                         </div>
-                        <a href="#" className="text-white px-3 py-2 rounded-md text-sm font-bold text-[16px]">BlockExplorer</a>
+                        <a href="/" className="text-white px-3 py-2 rounded-md text-sm font-bold text-[16px]">BlockExplorer</a>
                         <div className="hidden md:flex">
                             <div className="ml-10 flex items-baseline space-x-4">
                                 <a href="#" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Home</a>

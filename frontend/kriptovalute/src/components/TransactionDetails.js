@@ -36,17 +36,22 @@ const TransactionDetails = () => {
                 <p><span className="font-bold">Fee:</span> {transactionData.fee} BTC</p>
                 <h2 className="text-xl font-bold mt-4 mb-2">Inputs:</h2>
                 {transactionData.vin.map((vin, index) => (
-                    <div key={index} className="p-4 bg-gray-100 rounded mt-2">
-                        <p><span className="font-bold">Value:</span> {vin.prevout.value} BTC</p>
-                        <p><span className="font-bold">Address:</span> {vin.prevout.scriptPubKey.address}</p>
-                    </div>
+                    vin.coinbase ?
+                        <div key={index} className="p-4 bg-gray-100 rounded mt-2">
+                            <p><span className="font-bold">Coinbase:</span> {vin.coinbase}</p>
+                        </div>
+                        :
+                        <div key={index} className="p-4 bg-gray-100 rounded mt-2">
+                            <p><span className="font-bold">Value:</span> {vin.prevout?.value || 'N/A'} BTC</p>
+                            <p><span className="font-bold">Address:</span> {vin.prevout?.scriptPubKey?.address || 'N/A'}</p>
+                        </div>
                 ))}
                 <h2 className="text-xl font-bold mt-4 mb-2">Outputs:</h2>
                 {transactionData.vout.map((vout, index) => (
                     <div key={index} className="p-4 bg-gray-100 rounded mt-2">
-                        <p><span className="font-bold">Value:</span> {vout.value} BTC</p>
-                        <p><span className="font-bold">N:</span> {vout.n}</p>
-                        <p><span className="font-bold">Address:</span> {vout.scriptPubKey.address}</p>
+                        <p><span className="font-bold">Value:</span> {vout.value || 'N/A'} BTC</p>
+                        <p><span className="font-bold">N:</span> {vout.n || 'N/A'}</p>
+                        <p><span className="font-bold">Address:</span> {vout.scriptPubKey?.address || 'N/A'}</p>
                     </div>
                 ))}
             </div>
