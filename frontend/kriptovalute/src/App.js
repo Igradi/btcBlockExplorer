@@ -6,6 +6,7 @@ import HomePage from './components/HomePage';
 import TransactionDetails from './components/TransactionDetails';
 import BlockDetails from './components/BlockDetails';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import AboutPage from './components/AboutPage';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path="/transactionDetails/:transactionId" element={<TransactionDetails />} />
           <Route path="/blockDetails/:blockId" element={<BlockDetails />} />
           <Route path="/blockDetailsByHeight/:blockHeight" element={<BlockDetails />} />
+          <Route path="/about" element={<AboutPage />} />
         </Routes>
       </div>
     </Router>
