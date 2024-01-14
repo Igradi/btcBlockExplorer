@@ -24,16 +24,7 @@ const getLatestBlocks = async (req, res) => {
 
         for (let i = currentHeight; i > currentHeight - blockCount; i--) {
             const blockHash = await bitcoin.getBlockHash(i);
-
-            if (!blockHash) {
-                continue;
-            }
-
             const block = await bitcoin.getBlock(blockHash);
-
-            if (!block) {
-                continue;
-            }
 
             const blockData = {
                 height: block.height,
