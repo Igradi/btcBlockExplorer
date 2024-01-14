@@ -55,7 +55,7 @@ const HomePage = () => {
                                                     {block.time}
                                                 </td>
                                                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                                    {block.size}
+                                                    {block.size} bytes
                                                 </td>
                                                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                                     {block.transactionCount}

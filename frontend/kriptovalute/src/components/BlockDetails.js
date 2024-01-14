@@ -35,7 +35,7 @@ const BlockDetails = () => {
 
     return (
         <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-            <div className="p-8 bg-white rounded shadow-lg w-full md:w-3/4 lg:w-1/2 space-y-4">
+            <div className="p-8 bg-white rounded shadow-lg w-full md:w-3/4 lg:w-1/2 space-y-4 m-4">
                 <h1 className="text-3xl font-bold mb-6 text-center text-blue-600">Block Details</h1>
                 <p className="text-lg mb-4"><span className="font-bold">Block Hash:</span> {blockData.blockhash}</p>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-lg">
