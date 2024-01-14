@@ -45,7 +45,7 @@ const Navbar = () => {
                     <div className="hidden md:flex">
                         <div className="ml-4 flex items-center md:ml-6">
                             <form onSubmit={handleSearch}>
-                                <input type="text" placeholder="Search transactions, addresses, blocks..." className="rounded-md p-2 w-52" value={search} onChange={(e) => setSearch(e.target.value)} />
+                                <input type="text" placeholder="Search transactions, blocks, block hashes..." className="rounded-md p-2 w-52" value={search} onChange={(e) => setSearch(e.target.value)} />
                             </form>
                         </div>
                     </div>
@@ -70,7 +70,7 @@ const Navbar = () => {
                     <div className="flex items-center px-5">
                         <div className="flex-shrink-0">
                             <form onSubmit={handleSearch}>
-                                <input type="text" placeholder="Search transactions, addresses, blocks..." className="rounded-md p-2" value={search} onChange={(e) => setSearch(e.target.value)} />
+                                <input type="text" placeholder="Search transactions, blocks, block hashes..." className="rounded-md p-2" value={search} onChange={(e) => setSearch(e.target.value)} />
                             </form>
                         </div>
                     </div>
